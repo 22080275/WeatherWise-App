@@ -1,0 +1,69 @@
+----------------------------------
+Tool: ChatGPT
+Date: 2025-05-17
+----------------------------------
+
+Me: I need to build the get_weather_data() function for my WeatherWise app. It should:
+- Take a location name and number of forecast days
+- Use the fetch-my-weather package
+- Handle errors and return None if something goes wrong
+- Support mock mode for development
+Can you help with a clean implementation?
+
+AI: Absolutely! Here's a basic version using the fetch-my-weather API:
+
+```python
+from fetch_my_weather import get_weather
+
+def get_weather_data(location, forecast_days=3, use_mock=False):
+    """
+    Retrieve weather data for a specified location using fetch-my-weather.
+
+    Args:
+        location (str): City or location name
+        forecast_days (int): Number of forecast days (default 3)
+        use_mock (bool): If True, force mock data (useful for testing)
+
+    Returns:
+        object: Pydantic WeatherResponse model if successful, None if error
+    """
+    try:
+        response = get_weather(
+            location=location,
+            view_options=str(forecast_days - 1),
+            units="m",
+            format="json",
+            with_metadata=True,
+            use_mock=use_mock
+        )
+
+        if hasattr(response, "metadata") and response.metadata.error_type:
+            print(f"❌ Error occurred: {response.metadata.error_message}")
+            return None
+
+        if response.metadata.is_mock:
+            print("⚠️ Using mock data — results may not reflect real weather conditions.")
+
+        return response.data
+
+    except Exception as e:
+        print(f"❌ Unexpected error while fetching weather: {e}")
+        return None
+Me: That looks good. How does this handle if I give it an invalid city name?
+
+AI: If the location is invalid, the metadata will contain an error type and message. This is caught with:
+
+if response.metadata.error_type:
+    print(f"❌ Error occurred: {response.metadata.error_message}")
+    return None
+So instead of crashing, your app can display a helpful message and fail gracefully.
+
+Me: Perfect. Can I test this now?
+
+AI: Yes. You can use:
+data = get_weather_data("Perth", forecast_days=3)
+if data:
+    print(f"Temp: {data.current_condition[0].temp_C}°C")
+else:
+    print("No weather data available.")
+Me: Thanks. This will form the basis for both visualisations and chat responses later.
