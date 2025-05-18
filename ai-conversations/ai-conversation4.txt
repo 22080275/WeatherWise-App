@@ -1,0 +1,76 @@
+----------------------------------
+Tool: ChatGPT
+Date: 2025-05-17
+----------------------------------
+
+Me: I want to create a function called parse_weather_question() that takes a plain-English weather question and extracts key info like location, time period (today, tomorrow, weekend), and weather attribute (e.g. rain, temperature, humidity). Can you help me start?
+
+AI: Absolutely! You can use basic keyword matching for a simple approach, or use a natural language library like spaCy or regex if you want more accuracy. Let’s start with a simple version using regular expressions and keyword checks. Here’s a basic implementation:
+
+```python
+import re
+
+def parse_weather_question(question):
+    """
+    Parse a natural language weather question.
+
+    Args:
+        question (str): User's weather-related question
+
+    Returns:
+        dict: Parsed data with keys: 'location', 'time_period', 'attribute'
+    """
+    question = question.lower().strip()
+
+    # Basic keyword sets
+    time_keywords = {
+        "today": "today",
+        "tomorrow": "tomorrow",
+        "weekend": "weekend"
+    }
+    attribute_keywords = {
+        "rain": "rain",
+        "umbrella": "rain",
+        "temperature": "temperature",
+        "temp": "temperature",
+        "hot": "temperature",
+        "cold": "temperature",
+        "humidity": "humidity",
+        "wind": "wind"
+    }
+
+    # Defaults
+    parsed = {
+        "location": None,
+        "time_period": "today",  # default to today
+        "attribute": "general"  # default if not found
+    }
+
+    # Find time period
+    for word in time_keywords:
+        if word in question:
+            parsed["time_period"] = time_keywords[word]
+            break
+
+    # Find attribute
+    for word in attribute_keywords:
+        if word in question:
+            parsed["attribute"] = attribute_keywords[word]
+            break
+
+    # Extract location using simple regex after 'in' or 'for'
+    match = re.search(r"(in|for)\s+([a-zA-Z\s]+)", question)
+    if match:
+        parsed["location"] = match.group(2).strip()
+
+    return parsed
+Me: That looks great. Can we test it with “Will it rain tomorrow in Melbourne?”?
+
+AI: Sure! Here's what the function will return:
+
+{
+    'location': 'melbourne',
+    'time_period': 'tomorrow',
+    'attribute': 'rain'
+}
+Me: Perfect
