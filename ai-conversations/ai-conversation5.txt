@@ -1,0 +1,52 @@
+----------------------------------
+Tool: ChatGPT
+Date: 2025-05-17
+----------------------------------
+
+Me: I want to create a function called generate_weather_response() that takes the output of parse_weather_question() and the weather data from get_weather_data(), and returns a natural-sounding answer. Can you help?
+
+AI: Sure! The function will need to:
+
+1. Match the correct day from the forecast (today, tomorrow, etc.)
+2. Pull the right attribute (e.g. chance of rain, max temp)
+3. Return a friendly sentence like “Yes, it will rain tomorrow in Melbourne.”
+
+Here’s a version that handles rain and temperature:
+
+```python
+def generate_weather_response(parsed_question, weather_data):
+    """
+    Generate a natural language response to a weather question.
+
+    Args:
+        parsed_question (dict): Parsed question data
+        weather_data (WeatherResponse): Weather data
+
+    Returns:
+        str: Natural language response
+    """
+    location = parsed_question.get("location", "your location").title()
+    attribute = parsed_question.get("attribute", "general")
+    time_period = parsed_question.get("time_period", "today")
+
+    if not hasattr(weather_data, "weather") or not weather_data.weather:
+        return f"Sorry, I couldn't find any forecast data for {location}."
+
+    day_index = 0 if time_period == "today" else 1 if time_period == "tomorrow" else 0
+    forecast = weather_data.weather[day_index]
+
+    if attribute == "rain":
+        if hasattr(forecast, "hourly"):
+            try:
+                rain_chances = [int(hour.chanceofrain) for hour in forecast.hourly if hasattr(hour, "chanceofrain")]
+                avg_rain = sum(rain_chances) / len(rain_chances) if rain_chances else 0
+                return f"The chance of rain {time_period} in {location} is around {int(avg_rain)}%."
+            except:
+                return f"I couldn't interpret the rain data for {location}."
+    elif attribute == "temperature":
+        return f"The max temperature {time_period} in {location} is expected to be {forecast.maxtempC}°C, and the minimum is {forecast.mintempC}°C."
+
+    return f"The weather {time_period} in {location} looks fine, but I couldn't identify a specific attribute to check."
+Me: That’s really helpful. Can I add more attributes later?
+
+AI: Absolutely. This structure makes it easy to add humidity, wind, or air quality later.
