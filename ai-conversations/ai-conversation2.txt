@@ -1,0 +1,62 @@
+----------------------------------
+Tool: ChatGPT
+Date: 2025-05-17
+----------------------------------
+
+Me: I want to create a function called create_temperature_visualisation() that takes the weather data returned from fetch-my-weather and shows a chart of high and low temperatures for the next few days. Can you help?
+
+AI: Absolutely! You can extract the `weather` list from the `WeatherResponse` object and loop over it to get the dates, max temps, and min temps. Here’s a basic line chart version using matplotlib:
+
+```python
+import matplotlib.pyplot as plt
+
+def create_temperature_visualisation(weather_data, output_type='display'):
+    """
+    Create a line chart of max and min temperatures for each forecast day.
+
+    Args:
+        weather_data (WeatherResponse): The processed weather data
+        output_type (str): 'display' to show in notebook or 'figure' to return the figure
+
+    Returns:
+        If output_type is 'figure', returns matplotlib figure
+        Otherwise, displays the chart in the notebook
+    """
+    if not weather_data or not hasattr(weather_data, "weather"):
+        print("❌ No forecast data available.")
+        return
+
+    days = weather_data.weather
+    dates = [day.date for day in days]
+    max_temps = [int(day.maxtempC) for day in days]
+    min_temps = [int(day.mintempC) for day in days]
+
+    fig, ax = plt.subplots()
+    ax.plot(dates, max_temps, label="Max Temp (°C)", marker='o')
+    ax.plot(dates, min_temps, label="Min Temp (°C)", marker='o')
+    ax.set_title("🌡 Temperature Forecast")
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Temperature (°C)")
+    ax.legend()
+    ax.grid(True)
+
+    if output_type == 'figure':
+        return fig
+    else:
+        plt.show()
+Me: That’s really helpful. How can I make sure it doesn’t crash if the weather data is missing or the list is empty?
+
+AI: Good thinking. I’ve added a guard clause at the top:
+
+if not weather_data or not hasattr(weather_data, "weather"):
+    print("❌ No forecast data available.")
+    return
+This ensures that it exits early if the structure isn’t as expected.
+
+Me: Perfect. Can I also return the figure object if I want to save it to file later?
+
+AI: Yes — the output_type='figure' argument lets you optionally return the figure object instead of displaying it immediately. You can use it like:
+
+fig = create_temperature_visualisation(data, output_type='figure')
+fig.savefig("temperature_chart.png")
+Me: Awesome, thanks
