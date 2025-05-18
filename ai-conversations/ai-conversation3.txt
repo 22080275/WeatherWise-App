@@ -1,0 +1,60 @@
+----------------------------------
+Tool: ChatGPT
+Date: 2025-05-17
+----------------------------------
+
+Me: I want to build a function called create_precipitation_visualisation() that shows the chance of rain over the forecast days using matplotlib. It should read from the weather_data returned by fetch-my-weather. Can you help?
+
+AI: Absolutely! The `weather_data.weather` list contains daily forecast entries. Each day includes a list of hourly forecasts. You can average the hourly `chanceofrain` values to estimate a daily rain chance. Here’s a version that plots a bar chart:
+
+```python
+import matplotlib.pyplot as plt
+
+def create_precipitation_visualisation(weather_data, output_type='display'):
+    """
+    Create a bar chart of daily average chance of precipitation (%).
+
+    Args:
+        weather_data (WeatherResponse): The processed weather data
+        output_type (str): 'display' to show in notebook or 'figure' to return the figure
+
+    Returns:
+        If output_type is 'figure', returns matplotlib figure
+        Otherwise, displays the chart in the notebook
+    """
+    if not weather_data or not hasattr(weather_data, "weather"):
+        print("❌ No forecast data available.")
+        return
+
+    days = weather_data.weather
+    dates = []
+    rain_chances = []
+
+    for day in days:
+        if hasattr(day, "hourly"):
+            try:
+                hourly_rain = [int(hour.chanceofrain) for hour in day.hourly if hasattr(hour, "chanceofrain")]
+                average_rain = sum(hourly_rain) / len(hourly_rain) if hourly_rain else 0
+                dates.append(day.date)
+                rain_chances.append(average_rain)
+            except:
+                dates.append(day.date)
+                rain_chances.append(0)
+
+    fig, ax = plt.subplots()
+    ax.bar(dates, rain_chances, color='skyblue')
+    ax.set_title("🌧 Daily Chance of Rain")
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Chance of Rain (%)")
+    ax.set_ylim(0, 100)
+    ax.grid(True, axis='y')
+
+    if output_type == 'figure':
+        return fig
+    else:
+        plt.show()
+Me: That works well. What happens if hourly data is missing or malformed?
+
+AI: Good question. The function includes a try/except block to handle any conversion errors or missing chanceofrain attributes. If something goes wrong, it safely adds 0% rain chance for that day rather than crashing.
+
+Me: Perfect. Thanks — this gives me the second visualisation I need.
