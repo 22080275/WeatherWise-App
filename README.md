@@ -1,63 +1,76 @@
-# 🌦️ WeatherWise Template
+# WeatherWise: Python-Based Weather Dashboard
 
-Welcome to the **WeatherWise Assignment Starter Template**! This repository helps you kickstart your project by combining Python, weather APIs, data visualisation, and AI-assisted development. 🤖📊
-
-![Build With AI](https://img.shields.io/badge/Built_with-AI-blueviolet?logo=openai)
-![Python](https://img.shields.io/badge/Made_with-Python-3776AB?logo=python)
-![Visualisation](https://img.shields.io/badge/Includes-Visualisations-orange?logo=plotly)
+WeatherWise is a Python application built in Google Colab that combines real-time weather data retrieval, visualisation, and natural language interaction into a single console-based dashboard. The project demonstrates intentional prompting techniques using AI assistance to guide design, debugging, and iterative improvements.
 
 ---
 
-## 🚀 How to Use This Template
+## 🌦 Features
 
-1. Click **"Use this template"** on GitHub to create your own copy.
-2. Rename your repository to something like `weatherwise-jane-doe`.
-3. Clone it and start developing in `starter_notebook.ipynb`.
-
----
-
-## 📁 Folder Structure
-
-- `starter_notebook.ipynb` — Main notebook to build your project.
-- `ASSIGNMENT.md` — Full assignment specification.
-- `ai-conversations/` — Save your `.txt` AI conversations here.
-- `resources/` — Guides, prompting tips, and AI technique examples.
-- `submission/` — Files to help you finalise your submission:
-  - `checklist-md.md` — Submission checklist
-  - `reflection.md` — Write your 300–500 word project reflection
-  - `one-page-summary.md` — (Optional) Your own summary of key ideas or process
+* **Live Weather Retrieval**: Get current weather conditions and 3-day forecasts using `fetch_my_weather` API.
+* **Interactive Menu System**: Console-based menu with options for forecasts, charts, NLP queries, and moon phases.
+* **Visualisation**: Generate temperature and precipitation charts using `matplotlib`.
+* **Natural Language Questions**: Ask questions like "Will it rain tomorrow in Perth?" and receive accurate responses.
+* **Robust Error Handling**: Handles missing data, invalid locations, and poor input.
+* **Mock Data Support**: Enables consistent testing with simulated data.
+* **Fuzzy Location Matching**: Suggests corrections for misspelled city names.
 
 ---
 
-📄 **Quick Overview:**  
-A one-page summary of the full assignment is available in [`resources/assignment-summary.md`](resources/assignment-summary.md).
+## 🔧 Setup Instructions
+
+### Requirements
+
+* Google Colab (preferred)
+* Python 3.8+
+* Required Libraries:
+
+  ```bash
+  pip install pyinputplus
+  pip install rapidfuzz
+  ```
+
+### How to Run
+
+1. Open the notebook (`WeatherWiseFinalNotebook.ipynb`) in [Google Colab](https://colab.research.google.com).
+2. Run all cells in sequence.
+3. At the bottom of the notebook, run `main()` to start the application.
 
 ---
 
-## 📓 Submission Checklist
+## AI Prompting Techniques Used
 
-✅ Complete all required functions  
-✅ Include at least 5 AI conversations in `ai-conversations/`  
-✅ Document your intentional prompting  
-✅ Fill in your project reflection in `submission/reflection-template.md`  
-✅ Zip your project and upload it to the LMS  
+This project was built through intentional prompting with ChatGPT. Techniques demonstrated include:
+
+* Problem restatement
+* Pseudocode before implementation
+* Input/output identification
+* Requesting modularity improvements
+* Edge case testing and refinement
+* Before/after iterative prompting
+
+See the `ai_conversations` folder for full transcripts.
 
 ---
 
-🧠 AI Conversations  
-Save your AI interactions in the `ai-conversations/` folder.  
-See `ai-conversations/how-to-log-ai-conversations.md` for details.
+## 📁 Project Structure
 
+```
+WeatherWise/
+├── WeatherWiseFinalNotebook.ipynb            # Final notebook with full implementation
+├── ai_conversations/                # Text logs of AI conversations
+│   ├── conversation1.txt
+│   ├── conversation2.txt
+│   └── ...
+├── README.md                        # This file
+```
 
---
-## 🧠 Need Help with AI Prompts?
+---
 
-Check out:
-Check out:
-- `resources/ai-tips-tricks.md` — Prompting tips and pitfalls
-- `resources/sample-prompting-journey.md` — Full example of AI-enhanced development
-- `resources/prompts-by-method-step.md` — Prompts aligned with the 6-step dev process
-- `resources/before-after-example.md` — Required: Show how your prompting improved AI-generated code
+## ✨ Credits
 
+* Built by: Thomas Brain Angel
+* Lecturer: Michael Borck
+* API Used: fetch_my_weather (weather data)
+* AI Assistant: ChatGPT (OpenAI)
 
-Good luck and have fun! 💡🌤️
+---
