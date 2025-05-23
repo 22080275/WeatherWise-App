@@ -1,0 +1,22 @@
+Tool: ChatGPT
+Date: 2025-04-15
+----------------------------------
+Conversation about exploring implementation options for the WeatherWise app
+
+Me: I have to create a weather app in Python for an assignment. There are three suggested options: 
+1. Dashboard with charts, 
+2. Chatbot-style interface, or 
+3. A hybrid of both. What are the trade-offs of each?
+
+AI: Here's a breakdown of the three options:
+- **Option 1: Dashboard only**: Better for visual learners, allows data comparisons, but less natural interaction.
+- **Option 2: Chatbot only**: More conversational and accessible, but harder to use for visual comparisons.
+- **Option 3: Hybrid**: Offers flexibility but takes more effort to integrate both components.
+
+Me: Which of these would show more technical depth for a final project?
+
+AI: The hybrid approach typically demonstrates broader skills:
+- Modular code design
+- Visualisation and NLP integration
+- User interaction patterns
+It aligns well with real-world apps and satisfies a wider range of learning objectives.
