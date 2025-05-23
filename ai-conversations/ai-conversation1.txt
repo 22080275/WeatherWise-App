@@ -66,4 +66,4 @@ if data:
     print(f"Temp: {data.current_condition[0].temp_C}°C")
 else:
     print("No weather data available.")
-Me: Thanks. This will form the basis for both visualisations and chat responses later.
+
