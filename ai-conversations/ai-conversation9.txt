@@ -1,0 +1,28 @@
+Tool: ChatGPT
+Date: 2025-05-01
+----------------------------------
+Conversation about iterative improvement of get_weather_data()
+
+Me: Here's my first version of get_weather_data():
+
+```
+def get_weather(location):
+    response = requests.get(...)
+    return response.json()
+```
+
+Me: It crashes if the API fails. Can you improve it?
+
+AI: Sure — add input validation, timeouts, and return only the necessary fields:
+
+```
+def get_weather_data(location, forecast_days=3, timeout=10):
+    if not location or not isinstance(location, str):
+        return None
+    try:
+        response = requests.get(..., timeout=timeout)
+        response.raise_for_status()
+        return process(response.json())
+    except:
+        return None
+```
