@@ -73,4 +73,4 @@ AI: Sure! Here's what the function will return:
     'time_period': 'tomorrow',
     'attribute': 'rain'
 }
-Me: Perfect
+
