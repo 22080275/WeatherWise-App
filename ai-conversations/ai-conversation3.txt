@@ -57,4 +57,4 @@ Me: That works well. What happens if hourly data is missing or malformed?
 
 AI: Good question. The function includes a try/except block to handle any conversion errors or missing chanceofrain attributes. If something goes wrong, it safely adds 0% rain chance for that day rather than crashing.
 
-Me: Perfect. Thanks — this gives me the second visualisation I need.
+
