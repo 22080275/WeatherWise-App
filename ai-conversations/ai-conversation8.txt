@@ -1,0 +1,24 @@
+Tool: ChatGPT
+Date: 2025-04-19
+----------------------------------
+Conversation about error handling and edge case testing
+
+Me: What if the weather API returns bad data or the user inputs gibberish?
+
+AI: Good point. You need:
+- Try/except around API calls
+- Check for 404 or bad responses
+- Validate response schema
+- Use fallback messaging like “Sorry, I couldn’t get the weather.”
+
+Me: I also want to test an invalid location like “asdfgh” and make sure the app doesn't crash.
+
+AI: Here's a good test block:
+
+```
+data = get_weather_data("asdfgh", forecast_days=3)
+if data is None:
+    print("✅ Passed: Invalid input handled safely.")
+else:
+    print("❌ Unexpected data returned.")
+```
