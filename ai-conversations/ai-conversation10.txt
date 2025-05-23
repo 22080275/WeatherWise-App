@@ -1,0 +1,21 @@
+Tool: ChatGPT
+Date: 2025-05-21
+----------------------------------
+Conversation about improving user experience and location validation
+
+Me: I want my app to handle misspelled cities like "Brizban". Can it guess the closest match?
+
+AI: Yes, use fuzzy matching with `rapidfuzz.process.extractOne()`:
+- Maintain a list of known cities
+- If API fails, suggest a close match
+- Prompt user to confirm or retry
+
+Me: Great. We’ll try that.
+
+AI: Here's an implementation:
+
+```
+from rapidfuzz import process
+
+suggestion = process.extractOne("Brizban", known_cities)[0]
+```
