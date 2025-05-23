@@ -1,0 +1,33 @@
+Tool: ChatGPT
+Date: 2025-04-18
+----------------------------------
+Conversation about identifying input/output and pseudocode planning
+
+Me: I want to define the inputs and outputs for my weather data function. Can you help?
+
+AI: Sure! For a function like `get_weather_data()`:
+Inputs:
+- Location (string)
+- Forecast days (int)
+- Use mock mode (bool)
+Outputs:
+- Structured weather data object (dict or Pydantic model)
+- Or None if there’s an error
+
+Me: Can you give me pseudocode for the whole app layout?
+
+AI: Absolutely:
+
+```
+main():
+    show_menu()
+    get_user_input()
+    call_weather_data()
+    display results (text/graph)
+```
+
+AI: Break into functions:
+- `get_weather_data()`
+- `create_temperature_visualisation()`
+- `parse_weather_question()`
+- `generate_weather_response()`
